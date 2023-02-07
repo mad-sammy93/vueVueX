@@ -4,6 +4,7 @@ import {createStore} from 'vuex';
 import App from './App.vue';
 
 const counterModule = {
+    namespaced:true,//namespace the module 
     state() {
         return {
             counter:0,
@@ -14,6 +15,7 @@ const counterModule = {
             state.counter =  state.counter + 2;
         },
         increase(state, payload) {
+            console.log(state);
             state.counter = state.counter + payload.value;
         },
     },
@@ -30,6 +32,10 @@ const counterModule = {
         },
     },
     getters:{
+        tesAuthe(state,getters,rootState,rootGetters){
+            console.log(state,getters,rootState,rootGetters);
+            return state.isLoggedIn
+        },
         finalCounter(state) { // finalCounter(state,getters). getters: getting other getters. if result of getter depends on other getters
             return state.counter * 3;
         },
@@ -48,7 +54,7 @@ const counterModule = {
 
 const store =  createStore({
     modules: {
-        numbers: counterModule
+        numbers: counterModule 
     },
     state() {
         return {
